@@ -128,7 +128,7 @@
 
         <!-- /.content-wrapper -->
         <footer class="main-footer ml-0">
-            <strong>Copyright &copy; 2022<a href="#"> RS Bandung</a>.</strong>
+            <strong>Copyright &copy; 2022<a href="#"> Pukesmas Cimahi Utara</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 1.1.0

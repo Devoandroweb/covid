@@ -11,7 +11,7 @@
         <img src="{{asset('/assets/dist/img/logo-rs-baru.png')}}" style="width: 10%" class="mr-3 mb-2" alt="">
         <div style="">
             <h1 class="font-weight-bold">SELAMAT DATANG</h1>
-            <h6>Di Aplikasi Pengaduan COVID 19</h6>
+            <h6>Di Aplikasi Pengaduan COVID 19 Pukesmas Cimahi Utara</h6>
         </div>
     </div>
 </div>

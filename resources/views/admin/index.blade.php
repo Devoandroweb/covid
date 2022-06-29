@@ -4,7 +4,7 @@
 <center class="mb-5">
     <img src="{{asset('/assets/dist/img/logo-rs-baru.png')}}" width="5%" alt="">
     <h1 class="font-weight-bold">SELAMAT DATANG</h1>
-    <h6>Di Aplikasi Pengaduan COVID 19</h6>
+    <h6>Di Aplikasi Pengaduan COVID 19 Pukesmas Cimahi Utara</h6>
     <p>Jl. Jati Serut No.16, Cibabat, Kec. Cimahi Utara, Kota Cimahi, Jawa Barat 40573</p>
 </center>
 <div class="row justify-content-center">

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Login</title>
-
+  <link rel="icon" type="image/x-icon" href="{{asset('/assets/dist/img/logo-rs-baru.png')}}">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
@@ -19,7 +19,9 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-danger">
     <div class="card-header text-center">
+    <img src="{{asset('/assets/dist/img/logo-rs-baru.png')}}" style="width: 15%" class="mb-2" alt=""><br>
       <a href="{{url('assets')}}/index2.html" class="h1"><b>Admin</b></a>
+      <p><i>Pukesmas Cimahi Utara</i></p>
     </div>
     <div class="card-body">
       <p class="login-box-msg">Masukkan Username dan Password</p>
