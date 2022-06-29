@@ -1,15 +1,25 @@
 @extends('app')
 
 @section('content')
-<center>
-    <h1>SELAMAT DATANG</h1>
-    <h6>Di Aplikasi Pengaduan COVID 19</h6>
-</center>
+<div style="position: relative;text-align:center;align-items:center; display:flex;">
+    <hr style="width:100%;position:absolute">
+    <div class="" style="background: #f4f6f9;
+                padding: 1rem;
+                z-index: 9;
+                margin:auto">
+                
+        <img src="{{asset('/assets/dist/img/logo-rs-baru.png')}}" style="width: 10%" class="mr-3 mb-2" alt="">
+        <div style="">
+            <h1 class="font-weight-bold">SELAMAT DATANG</h1>
+            <h6>Di Aplikasi Pengaduan COVID 19</h6>
+        </div>
+    </div>
+</div>
 <br>
 <form action="{{url('pengaduan-save')}}" method="post">
     @csrf
     <div class="card card-default">
-        <div class="card-body p-0">
+        <div class="card-body p-sm-0 p-md-2">
             <div class="bs-stepper">
                 <div class="bs-stepper-header" role="tablist">
                     <!-- your steps here -->
@@ -29,24 +39,28 @@
                         </button>
                     </div>
                 </div>
-                <div class="bs-stepper-content">
+                <div class="bs-stepper-content" id="step-1">
                     <!-- your steps content here -->
                     <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
                         <div class="form-group">
+                            <label for="exampleInputEmail1">NIK</label>
+                            <input type="text" class="form-control" name="nik" id="exampleInputEmail1" placeholder="Masukkan Nomor Induk Kependudukan">
+                        </div>
+                        <div class="form-group">
                             <label for="exampleInputEmail1">Nama Pasien</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                            <input type="text" class="form-control" name="nama_pasien" id="exampleInputEmail1" placeholder="Masukkan Nama Pasien">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">No. Telepon</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1"
-                                placeholder="Password">
+                            <input type="text" class="form-control" name="no_telp" id="exampleInputPassword1"
+                                placeholder="Masukkan Nomor Telepon">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword2">Alamat</label>
-                            <textarea type="text" class="form-control" id="exampleInputPassword2"
+                            <textarea type="text" class="form-control" name="alamat" id="exampleInputPassword2"
                                 placeholder="Masukkan Alamat"></textarea>
                         </div>
-                        <button type="button" class="btn btn-success" onclick="stepper.next()">Selanjutnya <i class="fas fa-chevron-circle-right"></i></button>
+                        <button type="button" class="btn btn-success btn-next" disabled onclick="stepper.next()">Selanjutnya <i class="fas fa-chevron-circle-right"></i></button>
                     </div>
                     <div id="information-part" class="content" role="tabpanel"
                         aria-labelledby="information-part-trigger">
@@ -87,8 +101,9 @@
                              </div>
                             @else
                             <div class="form-group">
-                                <textarea type="text" name="answer[]" class="form-control" id="exampleInputPassword2"
-                                    placeholder="Password"></textarea>
+                                <label for="exampleInputPassword2">{{$key->nomor.". ".$key->pertanyaan}}</label>
+                                <textarea name="answer{{$key->nomor}}[]" class="form-control" id="exampleInputPassword2"
+                                    placeholder=""></textarea>
                             </div>
                             @endif
                         @endforeach
@@ -107,5 +122,33 @@
     // BS-Stepper Init
     document.addEventListener('DOMContentLoaded', function () {
         window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-    })
+    });
+    cekInput();
+    $("#logins-part .form-control").keyup(function (e) { 
+        e.preventDefault();
+        cekInput();
+    });
+    function cekInput(){
+        var el = $("#logins-part").find('.form-control');
+        var btn = false;
+        $.each(el, function (indexInArray, valueOfElement) { 
+            if(valueOfElement.value != ""){
+                $(".btn-next").removeAttr('disabled');
+                btn = true;
+            }
+        });
+        $.each(el, function (indexInArray, valueOfElement) { 
+            if(valueOfElement.value == ""){
+                $(".btn-next").removeAttr('disabled');
+                btn = false;
+            }
+        });
+        if(btn){
+            console.log(btn);
+        }else{
+            $(".btn-next").prop("disabled","disabled");
+            console.log(btn);
+        }
+    }
 </script>
+@endpush

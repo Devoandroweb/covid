@@ -129,6 +129,7 @@ $name[] = 'pertanyaan';
                             </div>
                         </div>
                        <input type="submit" class="btn btn-success" value="Simpan" />
+                       <a href="" onclick="history.back()" class="btn btn-default">Kembali</a>
                    </form>
                 </div>
                 <!-- /.card-body -->

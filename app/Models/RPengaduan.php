@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class RPengaduan extends Model
 {
     use HasFactory;
+
+    protected $table = "r_pengaduan";
 }

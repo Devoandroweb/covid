@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PENGADUAN COVID</title>
-
+    <title>{{$title}} | PENGADUAN COVID</title>
+    <link rel="icon" type="image/x-icon" href="{{asset('/assets/dist/img/logo-rs-baru.png')}}">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -36,13 +36,15 @@
     <!-- BS Stepper -->
     <link rel="stylesheet" href="{{asset('/')}}assets/plugins/bs-stepper/css/bs-stepper.min.css">
 </head>
-
+@php
+    $nomor = DB::table('setting')->where('kode','call_darurat')->pluck('value');
+@endphp
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center" style="opacity: .7;">
-            <img class="animation__shake" src="{{asset('/assets/dist/img/logo-rs.png')}}" alt="RS Bandung" height="60"
+            <img class="animation__shake" src="{{asset('/assets/dist/img/logo-rs-baru.png')}}" alt="RS Bandung" height="60"
                 width="60">
         </div>
 
@@ -53,18 +55,22 @@
             <ul class="navbar-nav">
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">
-                        <img src="{{asset('/assets/dist/img/logo-rs.png')}}" class="img-fluid" width="20px" alt="">
+                        <img src="{{asset('/assets/dist/img/logo-rs-baru.png')}}" class="img-fluid" width="20px" alt="">
                     </a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="{{url('/home')}}" class="nav-link">BERANDA</a>
+                    <a href="{{url('/home')}}" class="nav-link {{(URL::current() == url('/home')) ? 'active' : ''}}">BERANDA</a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
+                <li class="nav-item d-none d-sm-inline-block {{(URL::current() == url('/pasien')) ? 'active' : ''}}">
                     <a href="{{url('/pasien')}}" class="nav-link">PASIEN</a>
                 </li>
-                <li class="nav-item d-none d-sm-inline-block">
+                <li class="nav-item d-none d-sm-inline-block {{(URL::current() == url('/diagnosis')) ? 'active' : ''}}">
                     <a href="{{url('/diagnosis')}}" class="nav-link">DIAGNOSIS</a>
                 </li>
+                <li class="nav-item d-none d-sm-inline-block {{(URL::current() == url('/pengaduan')) ? 'active' : ''}}">
+                    <a href="{{url('/pengaduan')}}" class="nav-link">PENGADUAN</a>
+                </li>
+                
                 
             </ul>
 
@@ -82,8 +88,12 @@
                         <i class="far fa-user ml-3"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <a href="#" data-toggle="modal" data-target="#modal-call" class="dropdown-item">
+                            <i class="fas fa-phone mr-2"></i> Nomor Darurat
+                        </a>
+                        <div class="dropdown-divider"></div>
                         <a href="{{url('logout')}}" class="dropdown-item">
-                            <i class="fas fa-sign-out-alt"></i> Logout
+                            <i class="fas fa-sign-out-alt mr-2"></i> Logout
                         </a>
                     </div>
                 </li>
@@ -106,6 +116,7 @@
             <div class="content-header">
                 <div class="container-fluid">
                     @yield('content')
+                    
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
@@ -116,11 +127,11 @@
         </div>
 
         <!-- /.content-wrapper -->
-        <footer class="main-footer">
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
+        <footer class="main-footer ml-0">
+            <strong>Copyright &copy; 2022<a href="#"> RS Bandung</a>.</strong>
             All rights reserved.
             <div class="float-right d-none d-sm-inline-block">
-                <b>Version</b> 3.1.0
+                <b>Version</b> 1.1.0
             </div>
         </footer>
 
@@ -131,6 +142,34 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+    <div class="modal fade" id="modal-call" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nomor Darurat</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{url('setting/no_darurat')}}" method="post" id="form-call">
+                @csrf
+                
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nomor</label>
+                    <input type="text" class="form-control "
+                    name="no_darurat" autocomplete="off" value="{{$nomor[0]}}" required />
+                    <small style="font-size:9pt;">Nomor ini akan di tambilkan di halaman Pengaduan Utama</small>
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-primary btn-simpan-call">Simpan</button>
+            </div>
+            </div>
+        </div>
+        </div>
 
     <!-- jQuery -->
     <script src="{{asset('/')}}assets/plugins/jquery/jquery.min.js"></script>
@@ -181,6 +220,23 @@
     <script src="{{asset('/')}}assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="{{asset('/')}}assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script src="{{asset('/')}}assets/plugins/bs-stepper/js/bs-stepper.min.js"></script>
+    <script>
+        $(".btn-simpan-call").click(function (e) { 
+            e.preventDefault();
+            var form = $("#form-call").serialize();
+            $.ajax({
+                type: "post",
+                url: "{{url('setting-save-call')}}",
+                data: form,
+                dataType: "JSON",
+                success: function (response) {
+                    if(response.status){
+                        $("#modal-call").modal("hide");
+                    }
+                }
+            });
+        });
+    </script>
     @stack('js')
 </body>
 

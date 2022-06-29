@@ -10,7 +10,7 @@ class CDiagnosis extends Controller
     public function index()
     {
         $data = MPertanyaan::get();
-        return view('diagnosis.index')->with('data',$data);
+        return view('diagnosis.index')->with('title', 'Diagnosis')->with('data',$data);
     }
     public function create($title_page = 'Tambah')
     {
